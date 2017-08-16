@@ -61,6 +61,18 @@ public class GameBoard : MonoBehaviour
 				}
 			}
 		}
+		else
+		{
+			for (int i = 0; i < dimension; i++)
+			{
+				for (int j = 0; j < dimension; j++)
+				{
+					TileSquare current = squares[i][j];
+					current.isPlayerX = isPlayerX;
+					current.CurrentPiece = PieceType.none;
+				}
+			}
+		}
 
 		// This starts the game
 		if(!isPlayerX)
@@ -122,6 +134,12 @@ public class GameBoard : MonoBehaviour
 				nextPlayer = PieceType.player;
 			}
 		}
+	}
+
+	public void Restart()
+	{
+		menuScreen.SetActive(true);
+		pieceLocations = new List<TileSquare>();
 	}
 
 	/// <summary>
@@ -215,17 +233,6 @@ public class GameBoard : MonoBehaviour
 	{
 		endGameText.text = playerWon ? "Congraulations! You won. Play Again?" : "You Lost! Try Again?";
 		endGameText.gameObject.SetActive(true);
-		menuScreen.SetActive(true);
-
-		pieceLocations = new List<TileSquare>();
-
-		for (int i = 0; i < dimension; i++)
-		{
-			for (int j = 0; j < dimension; j++)
-			{
-				TileSquare current = squares[i][j];
-				current.CurrentPiece = PieceType.none;
-			}
-		}
+		Restart();
 	}
 }
